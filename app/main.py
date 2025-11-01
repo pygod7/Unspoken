@@ -1,7 +1,7 @@
 #$ main entrypoint!
 
 from fastapi import FastAPI
-from routes.login import router
+from app.routes.login import router
 
 app = FastAPI()
 

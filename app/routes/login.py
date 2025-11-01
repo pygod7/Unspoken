@@ -10,7 +10,7 @@ router = APIRouter(
     prefix="/auth",
     tags=["Auth"]
 )
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="app/templates")
 
 
 @router.get("/login")
