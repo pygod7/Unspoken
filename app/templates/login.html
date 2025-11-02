@@ -17,6 +17,7 @@
 
   <div class="w-full max-w-6xl md:h-[80vh] bg-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
 
+    <!-- Left Section (Info / Graphics) -->
     <div class="hidden md:flex flex-col items-start justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 md:w-1/2 text-gray-100 p-12">
       <div class="w-full flex justify-center mb-6">
         <img src="https://img.icons8.com/ios-filled/100/ffffff/anonymous-mask.png" class="w-20 h-20 animate-pulse" alt="Unspoken Logo"/>
@@ -53,14 +54,17 @@
       </ul>
     </div>
 
-    <div class="w-full md:w-1/2 flex flex-col justify-center items-center p-4 md:p-10 text-gray-100 bg-gray-900 md:bg-transparent h-screen md:min-h-0">
+    <!-- Right Section (Login / Signup) -->
+    <div class="w-full md:w-1/2 flex flex-col justify-start md:justify-center items-center p-4 md:p-10 text-gray-100 bg-gray-900 md:bg-transparent min-h-[80vh]">
 
+      <!-- Mobile Logo + Name -->
       <div class="flex flex-col items-center justify-center w-full md:hidden mb-4 pt-6">
         <img src="https://img.icons8.com/ios-filled/100/ffffff/anonymous-mask.png" class="w-20 h-20 mb-2" alt="Logo"/>
         <h1 class="text-2xl font-extrabold text-center tracking-tight mb-1">Unspoken</h1>
         <p class="text-center text-gray-400 text-sm">Anonymous. Free. Connect.</p>
       </div>
 
+      <!-- Welcome Back / Login -->
       <h1 class="text-2xl md:text-3xl font-bold mb-1 text-center tracking-tight">Welcome Back</h1>
       <p class="text-center text-gray-400 mb-2 md:mb-4 text-sm md:text-base">Login to your account</p>
 
@@ -142,6 +146,7 @@
   </div>
 
   <script>
+    // Toggle between login and signup
     const showSignupBtn = document.getElementById('show-signup');
     const showLoginBtn = document.getElementById('show-login');
     const loginSection = document.getElementById('login-section');
@@ -157,6 +162,7 @@
       loginSection.classList.remove('hidden');
     });
 
+    // Toggle password visibility
     const toggleLoginPassword = document.getElementById('toggle-login-password');
     const loginPasswordInput = document.getElementById('login-password');
     toggleLoginPassword.addEventListener('click', () => {
