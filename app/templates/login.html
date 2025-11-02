@@ -114,7 +114,7 @@
           <button class="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-full transition transform hover:scale-110 shadow-sm">
             <img src="https://img.icons8.com/ios-glyphs/24/github.png" alt="GitHub"/>
           </button>
-          <button class="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-full transition transform hover:scale-110 shadow-sm">
+          <button class="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-full transition transform hover:scale-110 shadow-sm" onclick="loginViaDiscord()">
             <img src="https://img.icons8.com/color/24/discord-logo.png" alt="Discord"/>
           </button>
         </div>
@@ -162,6 +162,14 @@
   </div>
 
   <script>
+
+   function loginViaDiscord() {
+    const url = window.location.origin + '/auth/login/discord';
+
+    // direclty ni garna milthyo jus tmalai build garna man lagyo url. directly garne vaye window.location.href = '/auth/login/discord'
+    window.location.href = url;
+}
+
     // Toggle between login and signup
     const showSignupBtn = document.getElementById('show-signup');
     const showLoginBtn = document.getElementById('show-login');
