@@ -1,5 +1,6 @@
 import fastapi
 import authlib
+import httpx
 
 from fastapi import FastAPI
 from fastapi import APIRouter, Request
@@ -23,7 +24,15 @@ oauth.register(
 )
 
 
-
+oauth.register(
+    name="github",
+    client_id=config.GITHUB_CLIENT_ID,
+    client_secret=config.GITHUB_CLIENT_SECRET,
+    access_token_url="https://github.com/login/oauth/access_token",
+    authorize_url="https://github.com/login/oauth/authorize",
+    api_base_url="https://api.github.com/",
+    client_kwargs={"scope": "public_repo"},
+)
 
 router = APIRouter(
     prefix="/auth",
@@ -43,7 +52,7 @@ async def login_page(request : Request):
 
 @router.get("/discord/callback", name="discord_callback")
 async def login_via_discord(request: Request):
-    try:
+    try:    
 
         token = await oauth.discord.authorize_access_token(request)
         print(token)
@@ -52,3 +61,31 @@ async def login_via_discord(request: Request):
         return user_info
     except MismatchingStateError:
         return "CSRF Verification Failed! Please login using the web LoginViaDiscord Button!"
+
+
+@router.get("/login/github")
+async def login_github(request: Request):
+    redirect_uri = request.url_for("github_callback")  # Discord callback URL
+    return await oauth.github.authorize_redirect(request, redirect_uri)
+
+
+@router.get("/github/callback", name="github_callback")
+async def github_callback(request: Request):
+    try:
+        # exchange code for access token
+        token = await oauth.github.authorize_access_token(request)
+
+        # fetch user info
+        user = await oauth.github.get("user", token=token)
+        user_info = user.json()
+
+        # store token and user info in session
+        request.session["token"] = token
+        request.session["user"] = {"login": user_info.get("login"), "id": user_info.get("id")}
+
+        # --- Automatically star repo ---
+        access_token = token.get("access_token")
+        return user_info
+
+    except MismatchingStateError:
+        return "CSRF Verification Failed! Please login using the GitHub login button!"
