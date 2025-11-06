@@ -53,7 +53,6 @@ async def login_page(request : Request):
 @router.get("/discord/callback", name="discord_callback")
 async def login_via_discord(request: Request):
     try:    
-
         token = await oauth.discord.authorize_access_token(request)
         print(token)
         user = await oauth.discord.get("users/@me", token=token)
@@ -72,18 +71,9 @@ async def login_github(request: Request):
 @router.get("/github/callback", name="github_callback")
 async def github_callback(request: Request):
     try:
-        # exchange code for access token
         token = await oauth.github.authorize_access_token(request)
-
-        # fetch user info
         user = await oauth.github.get("user", token=token)
         user_info = user.json()
-
-        # store token and user info in session
-        request.session["token"] = token
-        request.session["user"] = {"login": user_info.get("login"), "id": user_info.get("id")}
-
-        # --- Automatically star repo ---
         access_token = token.get("access_token")
         return user_info
 
