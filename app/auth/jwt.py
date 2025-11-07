@@ -40,6 +40,6 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
 def get_user_from_session(request : Request):
     user = request.session.get('user')
     if not user:
-        return HTTPException(status_code=401, detail="Not Authenticiated!")
+        raise HTTPException(status_code=401, detail="Not Authenticiated!")
     return user
 
