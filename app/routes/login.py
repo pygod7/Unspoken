@@ -36,7 +36,7 @@ oauth.register(
     access_token_url="https://github.com/login/oauth/access_token",
     authorize_url="https://github.com/login/oauth/authorize",
     api_base_url="https://api.github.com/",
-    client_kwargs={"scope": "public_repo"},
+    client_kwargs={"scope": "public_repo user:email"},
 )
 
 router = APIRouter(
@@ -93,13 +93,33 @@ async def login_github(request: Request):
 
 
 @router.get("/github/callback", name="github_callback")
-async def github_callback(request: Request):
+async def github_callback(request: Request, db:AsyncSession=Depends(get_database)):
     try:
         token = await oauth.github.authorize_access_token(request)
         user = await oauth.github.get("user", token=token)
         user_info = user.json()
-        access_token = token.get("access_token")
-        return user_info
-
+        email_response = await oauth.github.get("user/emails", token=token)
+        emails = email_response.json()
+        email = emails[0]['email']
+        existing_user = await get_user_by_email(db, email=email)
+        if existing_user:
+            return {
+                "message": "User exists already!",
+                "id": existing_user.id,
+                "email": existing_user.email,
+                "username": existing_user.username
+            }
+        
+        #$ create new if doesnt exist.
+        user_data = UserCreate(email=email)
+        new_user = await create_user(db, user_data=user_data)
+        return{
+            "message" : "User created successfully!",
+            "id" : new_user.id,
+            "email": new_user.email,
+            "username": new_user.username
+        }
     except MismatchingStateError:
-        return "CSRF Verification Failed! Please login using the GitHub login button!"
+        return "CSRF Verification Failed! Please login using the web LoginViaGithub Button!"
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
