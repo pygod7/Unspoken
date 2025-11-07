@@ -18,5 +18,5 @@ async_session = sessionmaker(
 #$ for fastapi easyness.
 
 async def get_database():
-    async with async_session as session:
+    async with async_session() as session:
         yield session

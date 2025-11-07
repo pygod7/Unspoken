@@ -61,15 +61,12 @@ def generate_password(length: int=12):
 def generate_uuid():
     return str(uuid.uuid4())
 
-import asyncio
-from app.database.conn import async_session  # your session factory
+async def get_user_by_email(db: AsyncSession, email:str):
+    sql = select(User).where(User.email==email)
+    result = await db.execute(sql)
+    return result.scalar_one_or_none()
 
-async def test_username_generator():
-    async with async_session() as db:
-        username = await generate_username(db)
-        print("Generated username:", username)
-
-# Run the test
-asyncio.run(test_username_generator())
-
-
+async def get_user_by_id(db: AsyncSession, id:str):
+    sql = select(User).where(User.id==id)
+    result = await db.execute(sql)
+    return result.scalar_one_or_none()
