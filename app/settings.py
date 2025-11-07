@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     GITHUB_CLIENT_ID : str
     GITHUB_CLIENT_SECRET : str
     DATABASE_URL : str
+    JWT_SECRET : str
 
     model_config = {
         "env_file": ".env"
