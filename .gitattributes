@@ -1,0 +1,6 @@
+# Force Python files to LF
+*.py text eol=lf
+
+# Optional: force other text files too
+*.txt text eol=lf
+*.md  text eol=lf
