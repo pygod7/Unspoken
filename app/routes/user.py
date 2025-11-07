@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
 from app.database.conn import get_database
 from app.database.crud import create_user
+
 router = APIRouter(prefix="/api/user", tags=["UserCRUD"])
 
 
