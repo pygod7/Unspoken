@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends,HTTPException
 from app.database.conn import get_database
 from app.database.schemas import UserCreate
-
+from fastapi import Body, status
 config = Settings()
 oauth = OAuth()
 
@@ -46,9 +46,41 @@ router = APIRouter(
 templates = Jinja2Templates(directory="app/templates")
 
 
+@router.post("/login/manual")
+async def login_manually(email = Body(...), password = Body(...), db:AsyncSession=Depends(get_database)):
+    user = await get_user_by_email(email=email, db=db)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password")
+
+    if password == user.password:
+        return {
+                "message": "Authenticiated Successfully!",
+                "id": user.id,
+                "email": user.email,
+                "username": user.username
+            }
+    
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Invalid Credentials!")
+
+
+@router.post("/register/manual")
+async def register_manually(email = Body(...), db:AsyncSession=Depends(get_database)):
+    user = await get_user_by_email(email=email, db=db)
+    if user:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="User email already in use!")
+    Userdata = UserCreate(email=email)
+    new_user = await create_user(user_data=Userdata, db=db)
+    return{
+            "message" : "User created successfully!",
+            "id" : new_user.id,
+            "email": new_user.email,
+            "username": new_user.username
+        }
+
+
 @router.get("/login/discord")
 async def login_discord(request: Request):
-    redirect_uri = request.url_for("discord_callback")  # Discord callback URL
+    redirect_uri = request.url_for("discord_callback")  
     return await oauth.discord.authorize_redirect(request, redirect_uri)
 
 @router.get("/login")
@@ -88,7 +120,7 @@ async def login_via_discord(request: Request, db:AsyncSession=Depends(get_databa
 
 @router.get("/login/github")
 async def login_github(request: Request):
-    redirect_uri = request.url_for("github_callback")  # Discord callback URL
+    redirect_uri = request.url_for("github_callback")  
     return await oauth.github.authorize_redirect(request, redirect_uri)
 
 
