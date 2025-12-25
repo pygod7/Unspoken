@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoodLift Onboarding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <div class="onboarding">
+      <h2>Welcome to <span>MoodLift</span>!</h2>
+      <p>Where your moods get better every day.<br>
+      Let us know about your life problems that you are facing:</p>
+
+      <div class="pill-container">
+        <div class="pill" data-value="love">Love / Relationship</div>
+        <div class="pill" data-value="family">Family Problems</div>
+        <div class="pill" data-value="friends">Friendship / Social</div>
+        <div class="pill" data-value="money">Money / Financial</div>
+        <div class="pill" data-value="pressure">Work / Academic Pressure</div>
+        <div class="pill" data-value="anxiety">Anxiety / Stress</div>
+        <div class="pill" data-value="depression">Depression / Sadness</div>
+        <div class="pill" data-value="selfesteem">Self-Esteem / Confidence</div>
+        <div class="pill" data-value="health">Health / Lifestyle</div>
+        <div class="pill" data-value="other">Other</div>
+      </div>
+
+      <input type="text" placeholder="Type your issue here..." id="otherInput" class="other-input">
+
+      <div class="button-container">
+        <button id="submitBtn">Enter</button>
+      </div>
+    </div>
+  </main>
+</body>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Bellota', sans-serif;
+    background: linear-gradient(180deg, #111827, #1b1f33);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    flex-direction: column;
+    color: white;
+  }
+
+  .onboarding h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 6px rgba(0,255,204,0.2);
+  }
+
+  .onboarding h2 span {
+    color: #00ffcc;
+  }
+
+  .onboarding p {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    color: #d0d4e0;
+  }
+
+  .pill-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    max-width: 480px;
+  }
+
+  .pill {
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  .pill:hover {
+    background: rgba(0,255,204,0.15);
+    transform: translateY(-1px);
+  }
+
+  .pill.selected {
+    background: #00ffcc;
+    color: #111827;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,255,204,0.3);
+    transform: scale(1.03);
+  }
+
+  .other-input {
+    display: none;
+    margin-top: 15px;
+    padding: 12px 15px;
+    width: 260px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .other-input:focus {
+    outline: none;
+    border-color: #00ffcc;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .button-container {
+    margin-top: 25px;
+    text-align: center;
+  }
+
+#submitBtn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px; /* pill-shaped like the pills */
+  background: linear-gradient(90deg, #00ffcc, #00d4b8);
+  color: #111827;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.4);
+}
+
+#submitBtn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 255, 204, 0.5);
+  background: linear-gradient(90deg, #00e6b8, #00cfa3);
+}
+
+</style>
+
+<script>
+  const pills = document.querySelectorAll('.pill');
+  const otherInput = document.getElementById('otherInput');
+  const submitBtn = document.getElementById('submitBtn');
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pill.classList.toggle('selected');
+
+        if (pill.dataset.value === 'other') {
+            otherInput.style.display = pill.classList.contains('selected') ? 'block' : 'none';
+            if(!pill.classList.contains('selected')) otherInput.value = '';
+        }
+    });
+  });
+
+  submitBtn.addEventListener('click', () => {
+    const selectedPills = [];
+    pills.forEach(pill => {
+      if(pill.classList.contains('selected') && pill.dataset.value !== 'other') {
+        selectedPills.push(pill.dataset.value);
+      }
+    });
+
+    const otherValue = otherInput.value.trim();
+    if(otherValue) selectedPills.push(otherValue);
+
+    if(selectedPills.length === 0){ 
+      alert("Please select at least one issue to continue.");
+      return;
+    }
+
+    console.log("Selected issues:", selectedPills);
+    alert("Thanks! Your selections have been recorded.");
+    // Here you can send selectedPills to your backend
+  });
+</script>
+</html>

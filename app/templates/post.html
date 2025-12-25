@@ -1,220 +1,174 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Rubin — 500 Days Schedule</title>
-  <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--white:#e6eef6}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Helvetica,Arial; background:linear-gradient(180deg,#071026 0%,#071823 60%);color:var(--white)}
-    .wrap{max-width:900px;margin:28px auto;padding:22px}
-    header{display:flex;gap:18px;align-items:center}
-    h1{font-size:22px;margin:0}
-    p.lead{margin:6px 0 18px;color:var(--muted)}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:16px}
-    .schedule{list-style:none;padding:0;margin:0}
-    .day{padding:12px;border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
-    .day h3{margin:0 0 6px;font-size:16px}
-    .time{color:var(--muted);font-size:13px}
-    .task{display:flex;align-items:center;gap:10px;margin:8px 0}
-    input[type=checkbox]{width:18px;height:18px}
-    .controls{display:flex;gap:8px;margin-top:12px}
-    button{background:var(--accent);border:0;padding:8px 12px;border-radius:8px;color:#022;cursor:pointer;font-weight:600}
-    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--white)}
-    aside{position:relative}
-    .stats{margin-bottom:12px}
-    .stat{display:flex;justify-content:space-between;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.01);margin-bottom:8px}
-    .note{font-size:13px;color:var(--muted);line-height:1.4}
-    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
-    .today{border-left:4px solid var(--accent);padding-left:10px}
-    .rest{background:linear-gradient(90deg, rgba(6,182,212,0.06), rgba(6,182,212,0.02));}
-    .small{font-size:13px;color:var(--muted)}
-    .topbar{display:flex;gap:10px;align-items:center}
-    .badge{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;color:var(--muted);font-weight:600}
-    @media(max-width:880px){.grid{grid-template-columns:1fr;}.wrap{padding:14px}}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@400;700&display=swap" rel="stylesheet">
+  <title>Document</title>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div>
-        <h1>🔥 Rubin — 500 Days Schedule</h1>
-        <p class="lead">Daily routine designed for skill grind, body & mind. Saturday is your rest day. Use this page to mark tasks done and keep momentum.</p>
+  <main>
+    <div class="onboarding">
+      <h2>Welcome to <span>MoodLift</span>!</h2>
+      <p>Where your moods get better every day.<br>
+      Let us know about your life problems that you are facing:</p>
+       <div class="pill-container">
+        <div class="pill" data-value="love">Love / Relationship</div>
+        <div class="pill" data-value="family">Family Problems</div>
+        <div class="pill" data-value="friends">Friendship / Social</div>
+        <div class="pill" data-value="money">Money / Financial</div>
+        <div class="pill" data-value="pressure">Work / Academic Pressure</div>
+        <div class="pill" data-value="anxiety">Anxiety / Stress</div>
+        <div class="pill" data-value="depression">Depression / Sadness</div>
+        <div class="pill" data-value="selfesteem">Self-Esteem / Confidence</div>
+        <div class="pill" data-value="health">Health / Lifestyle</div>
+        <div class="pill" data-value="other">Other</div>
       </div>
-      <div style="margin-left:auto;text-align:right">
-        <div class="topbar">
-          <div class="badge">Next target: 14 Apr 2027</div>
-          <div class="badge" id="dayBadge"></div>
-        </div>
+       <input type="text" placeholder="Type your issue here..." id="otherInput" class="other-input">
+
+      <div class="button-container">
+        <button id="submitBtn">Enter</button>
       </div>
-    </header>
-
-    <div class="grid" style="margin-top:18px">
-      <div class="card">
-        <h2 style="margin-top:0">Weekly Schedule (Sun–Fri)</h2>
-        <ul class="schedule" id="scheduleList">
-          <!-- days injected by JS -->
-        </ul>
-
-        <div class="controls">
-          <button id="clearBtn" class="ghost">Clear Today</button>
-          <button id="resetWeek">Reset Week</button>
-          <button id="exportBtn">Export JSON</button>
-        </div>
-      </div>
-
-      <aside>
-        <div class="card">
-          <h3 style="margin-top:0">Progress</h3>
-          <div class="stats">
-            <div class="stat"><div>Today done</div><div id="todayDone">0 / 6</div></div>
-            <div class="stat"><div>Week done</div><div id="weekDone">0 / 36</div></div>
-          </div>
-          <div class="note">Tips: Keep frontend main focus (1–4pm). Backend maintenance 5–7pm. Saturday is rest — light review, family time.</div>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h3 style="margin-top:0">Quick Controls</h3>
-          <p class="small">Mark tasks and they’ll persist locally. Use export to copy JSON backup.</p>
-          <div style="display:flex;gap:8px;margin-top:10px">
-            <button id="markAll">Mark All</button>
-            <button id="unmarkAll" class="ghost">Unmark All</button>
-          </div>
-        </div>
-      </aside>
     </div>
-
-    <footer>
-      Built for Rubin — stay consistent. ✊
-    </footer>
-  </div>
-
-  <script>
-    // Schedule data
-    const defaultSchedule = [
-      {day:'Sunday', items:[
-        {t:'04:00 - 04:10', label:'Wake + Freshen'},
-        {t:'04:10 - 04:50', label:'Calisthenics (40 min)'},
-        {t:'04:50 - 05:10', label:'Meditation'},
-        {t:'05:10 - 05:30', label:'Breakfast'},
-        {t:'06:00 - 12:00', label:'College'},
-        {t:'13:00 - 16:00', label:'Frontend (Main Focus)'}
-      ]},
-      {day:'Monday', items:[
-        {t:'04:00 - 04:10', label:'Wake + Freshen'},
-        {t:'04:10 - 04:50', label:'Calisthenics (40 min)'},
-        {t:'04:50 - 05:10', label:'Meditation'},
-        {t:'05:10 - 05:30', label:'Breakfast'},
-        {t:'06:00 - 12:00', label:'College'},
-        {t:'13:00 - 16:00', label:'Frontend (Main Focus)'}
-      ]},
-      {day:'Tuesday', items:[
-        {t:'04:00 - 04:10', label:'Wake + Freshen'},
-        {t:'04:10 - 04:50', label:'Calisthenics (40 min)'},
-        {t:'04:50 - 05:10', label:'Meditation'},
-        {t:'05:10 - 05:30', label:'Breakfast'},
-        {t:'06:00 - 12:00', label:'College'},
-        {t:'13:00 - 16:00', label:'Frontend (Main Focus)'}
-      ]},
-      {day:'Wednesday', items:[
-        {t:'04:00 - 04:10', label:'Wake + Freshen'},
-        {t:'04:10 - 04:50', label:'Calisthenics (40 min)'},
-        {t:'04:50 - 05:10', label:'Meditation'},
-        {t:'05:10 - 05:30', label:'Breakfast'},
-        {t:'06:00 - 12:00', label:'College'},
-        {t:'13:00 - 16:00', label:'Frontend (Main Focus)'}
-      ]},
-      {day:'Thursday', items:[
-        {t:'04:00 - 04:10', label:'Wake + Freshen'},
-        {t:'04:10 - 04:50', label:'Calisthenics (40 min)'},
-        {t:'04:50 - 05:10', label:'Meditation'},
-        {t:'05:10 - 05:30', label:'Breakfast'},
-        {t:'06:00 - 12:00', label:'College'},
-        {t:'13:00 - 16:00', label:'Frontend (Main Focus)'}
-      ]},
-      {day:'Friday', items:[
-        {t:'04:00 - 04:10', label:'Wake + Freshen'},
-        {t:'04:10 - 04:50', label:'Calisthenics (40 min)'},
-        {t:'04:50 - 05:10', label:'Meditation'},
-        {t:'05:10 - 05:30', label:'Breakfast'},
-        {t:'06:00 - 12:00', label:'College'},
-        {t:'13:00 - 16:00', label:'Frontend (Main Focus)'}
-      ]},
-      {day:'Saturday', items:[
-        {t:'All Day', label:'REST DAY — Light review, family, recharge'}
-      ], rest:true}
-    ];
-
-    // state key
-    const KEY = 'rubin-schedule-v1';
-
-    function loadState(){
-      const raw = localStorage.getItem(KEY);
-      if(!raw) return initState();
-      try{ return JSON.parse(raw);}catch{ return initState(); }
-    }
-    function initState(){
-      const state = {week: defaultSchedule.map(d=>({day:d.day,items:d.items.map(i=>({label:i.label,t:i.t,done:false})),rest:!!d.rest}))};
-      localStorage.setItem(KEY, JSON.stringify(state));
-      return state;
-    }
-
-    let state = loadState();
-
-    const scheduleList = document.getElementById('scheduleList');
-    const todayDone = document.getElementById('todayDone');
-    const weekDone = document.getElementById('weekDone');
-    const dayBadge = document.getElementById('dayBadge');
-
-    function render(){
-      scheduleList.innerHTML='';
-      const todayIndex = new Date().getDay(); // 0 Sun .. 6 Sat
-      // map sunday-first ordering in state
-      state.week.forEach((d, idx)=>{
-        const li = document.createElement('li');
-        li.className = 'day'+(idx===todayIndex? ' today':'')+(d.rest? ' rest':'');
-        const title = document.createElement('h3');
-        title.textContent = d.day + (d.rest? ' (Rest Day)':'');
-        const time = document.createElement('div'); time.className='time small'; time.textContent = d.items.map(it=>it.t).slice(0,2).join(' • ');
-        li.appendChild(title); li.appendChild(time);
-
-        d.items.forEach((it, i)=>{
-          const div=document.createElement('div'); div.className='task';
-          const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!it.done;
-          cb.addEventListener('change',()=>{ state.week[idx].items[i].done = cb.checked; saveState(); render(); });
-          const label = document.createElement('label'); label.textContent = `${it.t} — ${it.label}`;
-          div.appendChild(cb); div.appendChild(label);
-          li.appendChild(div);
-        });
-
-        scheduleList.appendChild(li);
-      });
-
-      // stats
-      const flat = state.week.flatMap(d=>d.items);
-      const doneCount = flat.filter(i=>i.done).length;
-      const total = flat.length;
-      todayDone.textContent = `${state.week[new Date().getDay()].items.filter(i=>i.done).length} / ${state.week[new Date().getDay()].items.length}`;
-      weekDone.textContent = `${doneCount} / ${total}`;
-      dayBadge.textContent = new Date().toLocaleDateString();
-    }
-
-    function saveState(){ localStorage.setItem(KEY, JSON.stringify(state)); }
-
-    document.getElementById('markAll').addEventListener('click', ()=>{
-      state.week.forEach(d=>d.items.forEach(it=>it.done=true)); saveState(); render();
-    });
-    document.getElementById('unmarkAll').addEventListener('click', ()=>{
-      state.week.forEach(d=>d.items.forEach(it=>it.done=false)); saveState(); render();
-    });
-    document.getElementById('clearBtn').addEventListener('click', ()=>{
-      const idx = new Date().getDay(); state.week[idx].items.forEach(it=>it.done=false); saveState(); render();
-    });
-    document.getElementById('resetWeek').addEventListener('click', ()=>{ if(confirm('Reset all progress for the week?')){ state = initState(); render(); }});
-    document.getElementById('exportBtn').addEventListener('click', ()=>{ const out = JSON.stringify(state, null, 2); prompt('Copy JSON:', out); });
-
-    render();
-  </script>
+  </main>
 </body>
+<style>
+  body{
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(180deg, #111827, #1b1f33);
+  
+
+  }
+  .pill-container{
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 480px;
+  }
+
+  .pill{
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: all 0.3 ease;
+    user-select: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+
+    }
+
+    .pill:hover{
+       background-color: rgba(0,255,204,0.15);
+       transform: translateY(-1px);
+    }
+
+  .pill.selected {
+    background: #00ffcc;                   /* Full green highlight when selected */
+    color: #111827;                        /* Text becomes dark for contrast */
+    font-weight: bold;                      /* Text pops out */
+    box-shadow: 0 2px 8px rgba(0,255,204,0.3); /* Stronger shadow for “active” feel */
+    transform: scale(1.03);                /* Slightly enlarges the pill to show selection */
+}
+
+  
+  .onboarding p {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    color: #d0d4e0;
+  }
+
+  .onboarding{
+    font-family: 'Bellota', sans-serif;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .onboarding h2{
+    font-family: 'Bellota';
+    color: white;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 6px rgba(0,255,204,0.2);
+  }
+
+  .onboarding h2 span{
+    color: #00ffcc;
+
+  }
+
+   .other-input {
+    display: none;
+    margin-top: 15px;
+    padding: 12px 15px;
+    width: 260px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .other-input:focus {
+    outline: none;
+    border-color: #00ffcc;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .button-container {
+    margin-top: 25px;
+    text-align: center;
+  }
+
+#submitBtn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px; /* pill-shaped like the pills */
+  background: linear-gradient(90deg, #00ffcc, #00d4b8);
+  color: #111827;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.4);
+}
+
+#submitBtn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 255, 204, 0.5);
+  background: linear-gradient(90deg, #00e6b8, #00cfa3);
+}
+
+
+</style>
+
+<script>
+  const pills = document.querySelectorAll('.pill');
+  const otherInput = document.getElementById('otherInput');
+  const submitBtn = document.getElementById('submitBtn');
+  for(let i = 0; i<(pills.length); i++){
+    pills[i].addEventListener('click', () => {
+      pills[i].classList.toggle('selected');
+    
+
+    if (pills[i].dataset.value === 'other'){
+      otherInput.style.display = pills[i].classList.contains('selected') ? 'block' : 'none';
+      if(!pills[i].classList.contains('selected')){
+        otherInput.value = '';
+      }
+    }
+    })
+  }
+// im trying to use raw js, yea i could use forEach i know it, i wanna do fully raw, to learn fundamentals!
+// ui is done, later i'll add the submit func!
+</script>
 </html>
