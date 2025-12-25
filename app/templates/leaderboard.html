@@ -1,130 +1,139 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@400;700&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <main>
+    <div class="onboarding">
+      <h2>Welcome to <span>MoodLift</span>!</h2>
+      <p>Where your moods get better every day.<br>
+      Let us know about your life problems that you are facing:</p>
+       <div class="pill-container">
+        <div class="pill" data-value="love">Love / Relationship</div>
+        <div class="pill" data-value="family">Family Problems</div>
+        <div class="pill" data-value="friends">Friendship / Social</div>
+        <div class="pill" data-value="money">Money / Financial</div>
+        <div class="pill" data-value="pressure">Work / Academic Pressure</div>
+        <div class="pill" data-value="anxiety">Anxiety / Stress</div>
+        <div class="pill" data-value="depression">Depression / Sadness</div>
+        <div class="pill" data-value="selfesteem">Self-Esteem / Confidence</div>
+        <div class="pill" data-value="health">Health / Lifestyle</div>
+        <div class="pill" data-value="other">Other</div>
+      </div>
+       <input type="text" placeholder="Type your issue here..." id="otherInput" class="other-input">
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Bellota:wght@400;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+      <div class="button-container">
+        <button id="submitBtn">Enter</button>
+      </div>
+    </div>
+  </main>
+</body>
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg, #111827, #1b1f33);
-  color: white;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  body{
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(180deg, #111827, #1b1f33);
+  
+
+  }
+  .pill-container{
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 480px;
+  }
+
+  .pill{
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: all 0.3 ease;
+    user-select: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+
+    }
+
+    .pill:hover{
+       background-color: rgba(0,255,204,0.15);
+       transform: translateY(-1px);
+    }
+
+  .pill.selected {
+    background: #00ffcc;                   /* Full green highlight when selected */
+    color: #111827;                        /* Text becomes dark for contrast */
+    font-weight: bold;                      /* Text pops out */
+    box-shadow: 0 2px 8px rgba(0,255,204,0.3); /* Stronger shadow for “active” feel */
+    transform: scale(1.03);                /* Slightly enlarges the pill to show selection */
 }
 
-/* Welcome animation */
-.welcome h2 {
-  font-family: 'Bellota', sans-serif;
-  font-size: 80px;
-  margin: 0;
-  opacity: 0;
-  transform: translateY(20px);
-  color: #ffd6eb;
-  text-shadow: 0 0 15px rgba(255, 214, 235, 0.6);
-  animation: fadeUp 2s ease-out forwards, glowPulse 4s ease-in-out infinite;
-}
+  
+  .onboarding p {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    color: #d0d4e0;
+  }
 
-@keyframes fadeUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  90% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; }
-}
+  .onboarding{
+    font-family: 'Bellota', sans-serif;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .onboarding h2{
+    font-family: 'Bellota';
+    color: white;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 6px rgba(0,255,204,0.2);
+  }
 
-@keyframes glowPulse {
-  0%,100% { text-shadow: 0 0 15px rgba(255,214,235,0.6);}
-  50% { text-shadow: 0 0 25px rgba(255,214,235,0.8);}
-}
+  .onboarding h2 span{
+    color: #00ffcc;
 
-/* Onboarding */
-.onboarding {
-  font-family: 'Bellota', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  display: none; /* hide initially */
-}
+  }
 
-.onboarding.show {
-  opacity: 1;
-  transform: translateY(0);
-  display: flex; /* show when activated */
-}
+   .other-input {
+    display: none;
+    margin-top: 15px;
+    padding: 12px 15px;
+    width: 260px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
 
-/* Pills */
-.pill-container {
-  color: white;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  max-width: 480px;
-}
+  .other-input:focus {
+    outline: none;
+    border-color: #00ffcc;
+    background: rgba(255,255,255,0.08);
+  }
 
-.pill {
-  padding: 10px 20px;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.05);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  user-select: none;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-}
+  .button-container {
+    margin-top: 25px;
+    text-align: center;
+  }
 
-.pill:hover {
-  background-color: rgba(0,255,204,0.15);
-  transform: translateY(-1px);
-}
-
-.pill.selected {
-  background: #00ffcc;
-  color: #111827;
-  font-weight: bold;
-  box-shadow: 0 2px 8px rgba(0,255,204,0.3);
-  transform: scale(1.03);
-}
-
-/* Other input */
-.other-input {
-  display: none;
-  margin-top: 15px;
-  padding: 12px 15px;
-  width: 260px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.05);
-  color: white;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-}
-
-.other-input:focus {
-  outline: none;
-  border-color: #00ffcc;
-  background: rgba(255,255,255,0.08);
-}
-
-/* Submit button */
 #submitBtn {
   padding: 12px 30px;
   border: none;
-  border-radius: 25px;
+  border-radius: 25px; /* pill-shaped like the pills */
   background: linear-gradient(90deg, #00ffcc, #00d4b8);
   color: #111827;
   font-weight: bold;
@@ -140,84 +149,27 @@ body {
   background: linear-gradient(90deg, #00e6b8, #00cfa3);
 }
 
-.onboarding h2 span {
-  color: #00ffcc;
-}
 
-.onboarding p {
-  font-size: 1.2rem;
-  text-align: center;
-  margin-bottom: 25px;
-  line-height: 1.5;
-  color: #d0d4e0;
-}
-
-.button-container {
-  margin-top: 25px;
-  text-align: center;
-}
 </style>
-</head>
-
-<body>
-<main>
-  <div class="welcome">
-    <h2>Welcome Rubin 😉😊</h2>
-  </div>
-
-  <div class="onboarding">
-    <h2>Welcome to <span>MoodLift</span>!</h2>
-    <p>Where your moods get better every day.<br>Let us know about your life problems that you are facing:</p>
-    <div class="pill-container">
-      <div class="pill" data-value="love">Love / Relationship</div>
-      <div class="pill" data-value="family">Family Problems</div>
-      <div class="pill" data-value="friends">Friendship / Social</div>
-      <div class="pill" data-value="money">Money / Financial</div>
-      <div class="pill" data-value="pressure">Work / Academic Pressure</div>
-      <div class="pill" data-value="anxiety">Anxiety / Stress</div>
-      <div class="pill" data-value="depression">Depression / Sadness</div>
-      <div class="pill" data-value="selfesteem">Self-Esteem / Confidence</div>
-      <div class="pill" data-value="health">Health / Lifestyle</div>
-      <div class="pill" data-value="other">Other</div>
-    </div>
-    <input type="text" placeholder="Type your issue here..." id="otherInput" class="other-input">
-    <div class="button-container">
-      <button id="submitBtn">Enter</button>
-    </div>
-  </div>
-</main>
 
 <script>
-const aniwel = document.querySelector('.welcome h2');
-const welcomeDiv = document.querySelector('.welcome');
-const onboarding = document.querySelector('.onboarding');
+  const pills = document.querySelectorAll('.pill');
+  const otherInput = document.getElementById('otherInput');
+  const submitBtn = document.getElementById('submitBtn');
+  for(let i = 0; i<(pills.length); i++){
+    pills[i].addEventListener('click', () => {
+      pills[i].classList.toggle('selected');
+    
 
-aniwel.addEventListener('animationend', () => {
-  aniwel.style.display = 'none';
-  document.body.style.overflow = 'auto';
-  welcomeDiv.remove();
-
-  // Show onboarding smoothly
-  onboarding.style.display = 'flex';
-  requestAnimationFrame(() => {
-    onboarding.classList.add('show');
-  });
-
-  // Pills logic
-  const pills = onboarding.querySelectorAll('.pill');
-  const otherInput = onboarding.querySelector('#otherInput');
-
-  pills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      pill.classList.toggle('selected');
-
-      if (pill.dataset.value === 'other') {
-        otherInput.style.display = pill.classList.contains('selected') ? 'block' : 'none';
-        if (!pill.classList.contains('selected')) otherInput.value = '';
+    if (pills[i].dataset.value === 'other'){
+      otherInput.style.display = pills[i].classList.contains('selected') ? 'block' : 'none';
+      if(!pills[i].classList.contains('selected')){
+        otherInput.value = '';
       }
-    });
-  });
-});
+    }
+    })
+  }
+// im trying to use raw js, yea i could use forEach i know it, i wanna do fully raw, to learn fundamentals!
+// ui is done, later i'll add the submit func!
 </script>
-</body>
 </html>

@@ -8,4 +8,4 @@ templates = Jinja2Templates(directory="app/templates")
 
 @router.get("/onboard", response_class=HTMLResponse)
 async def onboarding_data(request: Request):
-    return templates.TemplateResponse("post.html", {"request": request})
+    return templates.TemplateResponse("onboard.html", {"request": request})
