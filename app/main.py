@@ -15,7 +15,13 @@ except Exception:
     raise
 
 try:
-    from app.routes.login import router
+    from app.routes.login import router as login_router
+except Exception:
+    print("Failed to import router from login.py")
+    traceback.print_exc()
+    raise
+try:
+    from app.routes.onboard import router as onboard_router
 except Exception:
     print("Failed to import router from login.py")
     traceback.print_exc()
@@ -24,9 +30,16 @@ except Exception:
 app = FastAPI()
 
 try:
-    app.include_router(router)
+    app.include_router(login_router)
 except Exception:
-    print("Failed to include router")
+    print("Failed to include login router")
+    traceback.print_exc()
+    raise
+
+try:
+    app.include_router(onboard_router)
+except Exception:
+    print("Failed to include onboard router")
     traceback.print_exc()
     raise
 
