@@ -50,6 +50,4 @@ except Exception:
     traceback.print_exc()
     raise
 
-@app.get("/")
-async def root():
-    return {"message": "Hello from FastAPI on Vercel!"}
+
