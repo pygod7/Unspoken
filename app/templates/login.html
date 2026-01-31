@@ -1,83 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-  body {
-    font-family: 'Bellota', sans-serif;
-  }
-
-  h1, h2, h3, h4, h5, h6, button {
-    font-family: 'Bellota', sans-serif; 
-  }
-
-  ::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-  }
-</style>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | Trackly</title>
+  <title>Login | MoodLift</title>
   
+  <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    ::placeholder { color: rgba(255, 255, 255, 0.5); }
+    body {
+      font-family: 'Bellota', sans-serif;
+      background: #0f172a;
+    }
+
+    h1, h2, h3, h4, h5, h6, button {
+      font-family: 'Poppins', sans-serif; 
+    }
+
+    ::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Glow effect */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(800px 500px at 15% 20%, rgba(0,255,204,0.10), transparent 60%),
+        radial-gradient(700px 500px at 85% 10%, rgba(102,51,153,0.14), transparent 55%),
+        radial-gradient(700px 500px at 70% 85%, rgba(0,255,204,0.08), transparent 55%);
+      filter: blur(2px);
+    }
   </style>
 </head>
-<body class="bg-gray-900 min-h-screen flex items-center justify-center p-2 overflow-hidden md:overflow-auto">
+<body class="min-h-screen flex items-center justify-center p-2 overflow-hidden md:overflow-auto">
+  
+  <div class="bg-glow"></div>
 
-  <div class="w-full max-w-6xl md:h-[80vh] bg-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+  <div class="w-full max-w-6xl md:h-[80vh] bg-white/5 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-white/10 relative z-10">
 
     <!-- Left Section (Info / Graphics) -->
-    <div class="hidden md:flex flex-col items-start justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 md:w-1/2 text-gray-100 p-12">
+    <div class="hidden md:flex flex-col items-start justify-center bg-gradient-to-br from-indigo-900/80 via-purple-900/80 to-pink-900/80 md:w-1/2 text-gray-100 p-12 backdrop-blur-sm">
       <div class="w-full flex justify-center mb-6">
-        <img src="https://img.icons8.com/ios-filled/100/ffffff/anonymous-mask.png" class="w-20 h-20 animate-pulse" alt="Trackly Logo"/>
+        <img src="https://i.ibb.co/kVj71L00/moodlift-logo.png" class="w-24 h-24 animate-pulse drop-shadow-[0_0_20px_rgba(0,255,204,0.3)]" alt="MoodLift Logo"/>
       </div>
-      <h2 class="text-5xl font-extrabold mb-8 tracking-tight w-full text-center">Trackly</h2>
+      <h2 class="text-5xl font-extrabold mb-8 tracking-tight w-full text-center" style="font-family: 'Bellota', sans-serif;">MoodLift</h2>
       <ul class="space-y-6 text-left text-gray-100 text-lg leading-relaxed w-full">
         <li class="flex items-start gap-4 hover:translate-x-1 transition-transform duration-300">
-          <span class="relative flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full shadow-lg">
-            <div class="absolute w-8 h-8 rounded-full bg-blue-500 opacity-20 blur-xl"></div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <span class="relative flex items-center justify-center w-6 h-6 bg-cyan-400 rounded-full shadow-lg">
+            <div class="absolute w-8 h-8 rounded-full bg-cyan-400 opacity-20 blur-xl"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
             </svg>
           </span>
-          <span>Post anonymously</span>
+          <span>Anonymous support and journaling</span>
         </li>
         <li class="flex items-start gap-4 hover:translate-x-1 transition-transform duration-300">
-          <span class="relative flex items-center justify-center w-6 h-6 bg-pink-400 rounded-full shadow-lg">
-            <div class="absolute w-8 h-8 rounded-full bg-pink-400 opacity-20 blur-xl"></div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/>
+          <span class="relative flex items-center justify-center w-6 h-6 bg-cyan-400 rounded-full shadow-lg">
+            <div class="absolute w-8 h-8 rounded-full bg-cyan-400 opacity-20 blur-xl"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
             </svg>
           </span>
-          <span>Read trending confessions</span>
+          <span>Track your emotional baseline</span>
         </li>
         <li class="flex items-start gap-4 hover:translate-x-1 transition-transform duration-300">
-          <span class="relative flex items-center justify-center w-6 h-6 bg-purple-500 rounded-full shadow-lg">
-            <div class="absolute w-8 h-8 rounded-full bg-purple-500 opacity-20 blur-xl"></div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8v-8"/>
+          <span class="relative flex items-center justify-center w-6 h-6 bg-cyan-400 rounded-full shadow-lg">
+            <div class="absolute w-8 h-8 rounded-full bg-cyan-400 opacity-20 blur-xl"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
           </span>
-          <span>Connect safely with community</span>
+          <span>Connect with safe peer communities</span>
+        </li>
+        <li class="flex items-start gap-4 hover:translate-x-1 transition-transform duration-300">
+          <span class="relative flex items-center justify-center w-6 h-6 bg-cyan-400 rounded-full shadow-lg">
+            <div class="absolute w-8 h-8 rounded-full bg-cyan-400 opacity-20 blur-xl"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </span>
+          <span>Evidence-based guided therapy tools</span>
         </li>
       </ul>
     </div>
 
     <!-- Right Section (Login / Signup) -->
-    <div class="w-full md:w-1/2 flex flex-col justify-start md:justify-center items-center p-4 md:p-10 text-gray-100 bg-gray-900 md:bg-transparent min-h-[80vh]">
+    <div class="w-full md:w-1/2 flex flex-col justify-start md:justify-center items-center p-4 md:p-10 text-gray-100 bg-gray-900/50 md:bg-transparent min-h-[80vh] backdrop-blur-sm">
 
       <!-- Mobile Logo + Name -->
       <div class="flex flex-col items-center justify-center w-full md:hidden mb-4 pt-6">
-        <img src="https://img.icons8.com/ios-filled/100/ffffff/anonymous-mask.png" class="w-20 h-20 mb-2" alt="Logo"/>
-        <h1 class="text-2xl font-extrabold text-center tracking-tight mb-1">Trackly</h1>
-        <p class="text-center text-gray-400 text-sm">Smarter Spendig Stars Here!</p>
+        <img src="https://i.ibb.co/kVj71L00/moodlift-logo.png" class="w-20 h-20 mb-2 drop-shadow-[0_0_15px_rgba(0,255,204,0.3)]" alt="Logo"/>
+        <h1 class="text-2xl font-extrabold text-center tracking-tight mb-1" style="font-family: 'Bellota', sans-serif;">MoodLift</h1>
+        <p class="text-center text-gray-400 text-sm">Mental health support before crisis</p>
       </div>
 
       <!-- Welcome Back / Login -->
@@ -86,17 +104,17 @@
 
       <div id="login-section" class="w-full max-w-md">
         <form class="space-y-3 mb-3 relative">
-          <input id="login-email" type="text" placeholder="Username or Email" class="w-full p-3 md:p-4 rounded-lg bg-white/10 text-gray-100 placeholder-white/45 focus:outline-none focus:ring-2 focus:ring-blue-400/70 shadow-sm transition text-sm md:text-base"/>
+          <input id="login-email" type="text" placeholder="Username or Email" class="w-full p-3 md:p-4 rounded-lg bg-white/10 text-gray-100 placeholder-white/45 focus:outline-none focus:ring-2 focus:ring-cyan-400/70 shadow-sm transition text-sm md:text-base border border-white/10"/>
           <div class="relative">
-            <input id="login-password" type="password" placeholder="Password" class="w-full p-3 md:p-4 rounded-lg bg-white/10 text-gray-100 placeholder-white/45 focus:outline-none focus:ring-2 focus:ring-blue-400/70 shadow-sm transition pr-10 md:pr-12 text-sm md:text-base"/>
-            <button type="button" id="toggle-login-password" class="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 text-gray-400 hover:text-white transition">
+            <input id="login-password" type="password" placeholder="Password" class="w-full p-3 md:p-4 rounded-lg bg-white/10 text-gray-100 placeholder-white/45 focus:outline-none focus:ring-2 focus:ring-cyan-400/70 shadow-sm transition pr-10 md:pr-12 text-sm md:text-base border border-white/10"/>
+            <button type="button" id="toggle-login-password" class="absolute top-1/2 right-2 md:right-3 -translate-y-1/2 text-gray-400 hover:text-cyan-400 transition">
               <svg id="login-eye-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7zm0 12a5 5 0 110-10 5 5 0 010 10z"/>
                 <path d="M10 7a3 3 0 100 6 3 3 0 000-6z"/>
               </svg>
             </button>
           </div>
-          <button type="submit" class="w-full bg-gradient-to-r from-indigo-700 to-blue-800 hover:from-blue-800 hover:to-indigo-700 text-white py-2.5 md:py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg text-sm md:text-base">
+          <button type="submit" class="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-600 text-white py-2.5 md:py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg text-sm md:text-base shadow-cyan-500/20">
             Login
           </button>
         </form>
@@ -108,28 +126,28 @@
         </div>
 
         <div class="flex justify-center gap-3 mb-2">
-          <button class="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-full transition transform hover:scale-110 shadow-sm">
+          <button class="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition transform hover:scale-110 shadow-sm border border-white/10">
             <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google"/>
           </button>
-          <button class="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-full transition transform hover:scale-110 shadow-sm">
-            <img src="https://img.icons8.com/ios-glyphs/24/github.png" alt="GitHub"/>
+          <button class="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition transform hover:scale-110 shadow-sm border border-white/10">
+            <img src="https://img.icons8.com/ios-glyphs/24/ffffff/github.png" alt="GitHub"/>
           </button>
-          <button class="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-full transition transform hover:scale-110 shadow-sm" onclick="loginViaDiscord()">
+          <button class="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition transform hover:scale-110 shadow-sm border border-white/10" onclick="loginViaDiscord()">
             <img src="https://img.icons8.com/color/24/discord-logo.png" alt="Discord"/>
           </button>
         </div>
 
         <p class="text-center text-gray-400 text-xs md:text-sm">
           Don't have an account? 
-          <button id="show-signup" class="text-blue-500 hover:underline font-semibold">Sign Up</button>
+          <button id="show-signup" class="text-cyan-400 hover:underline font-semibold">Sign Up</button>
         </p>
       </div>
 
       <div id="signup-section" class="hidden w-full max-w-md">
         <h2 class="text-xl md:text-2xl font-bold mb-3 text-center tracking-tight">Sign Up</h2>
         <form class="space-y-3 mb-3">
-          <input type="email" placeholder="Email" class="w-full p-3 md:p-4 rounded-lg bg-white/10 text-gray-100 placeholder-white/45 focus:outline-none focus:ring-2 focus:ring-blue-400/70 shadow-sm transition text-sm md:text-base"/>
-          <button type="submit" class="w-full bg-gradient-to-r from-indigo-700 to-blue-800 hover:from-blue-800 hover:to-indigo-700 text-white py-2.5 md:py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg text-sm md:text-base">
+          <input type="email" placeholder="Email" class="w-full p-3 md:p-4 rounded-lg bg-white/10 text-gray-100 placeholder-white/45 focus:outline-none focus:ring-2 focus:ring-cyan-400/70 shadow-sm transition text-sm md:text-base border border-white/10"/>
+          <button type="submit" class="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-600 text-white py-2.5 md:py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg text-sm md:text-base shadow-cyan-500/20">
             Send Password
           </button>
         </form>
@@ -141,20 +159,20 @@
         </div>
 
         <div class="flex justify-center gap-3 mb-2">
-          <button class="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-full transition transform hover:scale-110 shadow-sm">
+          <button class="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition transform hover:scale-110 shadow-sm border border-white/10">
             <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google"/>
           </button>
-          <button class="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-full transition transform hover:scale-110 shadow-sm">
-            <img src="https://img.icons8.com/ios-glyphs/24/github.png" alt="GitHub"/>
+          <button class="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition transform hover:scale-110 shadow-sm border border-white/10">
+            <img src="https://img.icons8.com/ios-glyphs/24/ffffff/github.png" alt="GitHub"/>
           </button>
-          <button class="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-full transition transform hover:scale-110 shadow-sm">
+          <button class="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition transform hover:scale-110 shadow-sm border border-white/10">
             <img src="https://img.icons8.com/color/24/discord-logo.png" alt="Discord"/>
           </button>
         </div>
 
         <p class="text-center mt-1 text-gray-400 text-xs md:text-sm">
           Already have an account? 
-          <button id="show-login" class="text-blue-500 hover:underline font-semibold">Login</button>
+          <button id="show-login" class="text-cyan-400 hover:underline font-semibold">Login</button>
         </p>
       </div>
 
@@ -162,13 +180,10 @@
   </div>
 
   <script>
-
-   function loginViaDiscord() {
-    const url = window.location.origin + '/auth/login/discord';
-
-    // direclty ni garna milthyo jus tmalai build garna man lagyo url. directly garne vaye window.location.href = '/auth/login/discord'
-    window.location.href = url;
-}
+    function loginViaDiscord() {
+      const url = window.location.origin + '/auth/login/discord';
+      window.location.href = url;
+    }
 
     // Toggle between login and signup
     const showSignupBtn = document.getElementById('show-signup');

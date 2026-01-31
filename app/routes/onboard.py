@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse
 
 router = APIRouter()
 
-templates = Jinja2Templates(directory="app/templates") 
+templates = Jinja2Templates(directory="app/templates")  
 
 @router.get("/onboard", response_class=HTMLResponse)
 async def onboarding_data(request: Request):
